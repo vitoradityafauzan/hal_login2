@@ -1,0 +1,12 @@
+$id = $_REQUEST['username'];
+							$_SESSION['biodata'] = $id;
+							$data = mysqli_query($link,"SELECT * FROM biodata WHERE 'username' = '".$_SESSION['biodata']."' ") 
+							or die(mysql_error()); 
+							Print "<table border cellpadding=3>"; 
+							 while($info = mysqli_fetch_array( $data )) 
+							 { 
+							 Print "<tr>"; 
+							 Print "<th>Name:</th> <td>".$data['fname'] . "</td> "; 
+							 Print "<th>Username:</th> <td>".$data['username'] . " </td></tr>"; 
+							 } 
+							 Print "</table>"; 

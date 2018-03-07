@@ -1,13 +1,15 @@
-<!--
-Author : Aguzrybudy
-Created : Selasa, 19-April-2016
-Title : Crud Menggunakan Modal Bootsrap
--->
 <?php
-    include "config.php";
-    $username=$_POST['username'];
-    $modal=mysqli_query($link,"SELECT * FROM biodata WHERE username='$username'");
-    while($show=mysqli_fetch_array($modal)){
+        include "config.php";
+        session_start();
+        var_dump($_SESSION);
+        // If session variable is not set it will redirect to login page
+        if(!isset($_SESSION['username']) || empty($_SESSION['username'])){
+          header("location: index.php");
+          exit;}
+
+        $username = $_SESSION['username'];
+        $sql = mysqli_query($link,"SELECT * FROM biodata WHERE username='$username'");
+        while($show = mysqli_fetch_array($sql)){
 ?>
 
 <div class="modal-dialog">
@@ -21,7 +23,11 @@ Title : Crud Menggunakan Modal Bootsrap
         <div class="modal-body">
         	<form action="proses_edit.php" name="modal_popup" enctype="multipart/form-data" method="POST">
 
-        		
+        		<div class="form-group" style="padding-bottom: 20px;">
+                    <label for="position">Username</label>
+                    <input type="text" name="position" class="form-control" value="<?php echo $show['username']; ?>"/>
+                </div>
+
                 <div class="form-group" style="padding-bottom: 20px;">
                     <label for="fname">First Name</label>
                     <input type="hidden" name="nik"  class="form-control" value="<?php echo $show['nik']; ?>" />
@@ -38,16 +44,6 @@ Title : Crud Menggunakan Modal Bootsrap
                     <input type="email" name="email"  class="form-control" value="<?php echo $show['email']; ?>"/>
                 </div>
 
-                 <div class="form-group" style="padding-bottom: 20px;">
-                    <label for="phone">Phone Number</label>
-                    <input type="text" name="phone"  class="form-control" value="<?php echo $show['phone']; ?>"/>
-                </div>
-
-                 <div class="form-group" style="padding-bottom: 20px;">
-                    <label for="position">Position</label>
-                    <input type="text" name="position"  class="form-control" value="<?php echo $show['position']; ?>"/>
-                </div>
-
                  <div class="form-group">
                             <label for="division"> Select Divison : </label>
                             <select class="form-control" name="division" id="division">
@@ -56,11 +52,6 @@ Title : Crud Menggunakan Modal Bootsrap
                                 <option>IT Electronic Data Processing</option>
                                 <option>IT Solution</option>
                             </select>
-                </div>
-
-                 <div class="form-group" style="padding-bottom: 20px;">
-                    <label for="position">Username</label>
-                    <input type="text" name="position" class="form-control" value="<?php echo $show['username']; ?>"/>
                 </div>
 
 	            <div class="modal-footer">

@@ -1,18 +1,18 @@
 <?php 
 
-if(isset($_POST['id'])){
+if(isset($_POST['username'])){
 
-		$id = $_POST['id'];
+		$username = $_POST['username'];
 
 		$link = mysqli_connect("localhost", "root", "", "magang");
 		 
 		// jalankan query
-		$sql = "SELECT * FROM biodata WHERE id = '$id'";
+		$sql = "SELECT * FROM biodata WHERE username = '$username'";
 		$result = mysqli_query($link, $sql);
 
-		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		$show = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
-		echo json_encode($row);
+		echo json_encode($show);
 		exit;
 }
 
